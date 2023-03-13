@@ -1,0 +1,27 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.outer {
+    display: flex;
+    background-color: rgba(20, 20, 20);
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    .inner {
+        display: flex;
+        flex-direction: column;
+        margin: 30px auto;
+
+        h1 {
+            text-align: center;
+        }
+
+        &>* {
+            margin: 0 auto 40px auto;
+        }
+    }
+}
