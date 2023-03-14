@@ -12,6 +12,7 @@ export default async function handler(req) { // notice we don't receive a 'res' 
     const { searchParams } = new URL(req.url)
     const pid = searchParams.get('pid');
     const url = `https://dummyjson.com/products/${pid}`;
+    console.log(url)
 
     try {
         const result = await fetch(url);
