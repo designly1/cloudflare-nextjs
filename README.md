@@ -1,3 +1,6 @@
+Host Your Next.js Site on CloudFlare Pages With Next/Image Support For Free
+------------------
+
 Cloudflare Pages is a cloud-based platform that enables developers to build, deploy, and scale modern web applications and websites. It is a serverless platform, meaning that it allows developers to build and deploy applications without worrying about managing servers or infrastructure.
 
 With Cloudflare Pages, developers can connect their code repositories and build their applications using their preferred tools and languages. The platform supports a wide range of static site generators, frameworks, and programming languages, including React, Next.js, Gatsby, Vue.js, and more.
@@ -70,7 +73,7 @@ With this set, image optimization should work once the site is deployed. You can
 That's takes care of images. Next, we're going to set up an API route to fetch some data from a fake products API. This is a little different than what you're used to using the Node Express server. API routes on CloudFlare require the use of Next's edge runtime and CloudFlare will automatically create a web worker for each of these routes. So if you're familiar with CloudFlare workers, you'll be right at home!
 
 ```js
-// @/pages/api/products/[pid].js
+// @/pages/api/product/index.js
 // Next.js Edge API Routes: https://nextjs.org/docs/api-routes/edge-api-routes
 
 // Tell Next.js to use the edge runtime
@@ -80,7 +83,10 @@ export const config = {
 
 export default async function handler(req) { // notice we don't receive a 'res' prop
 
-    // Next.js converts dynamic route to a search param. We need to parse it manually.
+    /**
+     * CloudFlare does not yet support path to query param redirects,
+     * so we must use traditional query params
+     */
     const { searchParams } = new URL(req.url)
     const pid = searchParams.get('pid');
     const url = `https://dummyjson.com/products/${pid}`;
@@ -89,7 +95,10 @@ export default async function handler(req) { // notice we don't receive a 'res' 
         const result = await fetch(url);
         const json = await result.json();
 
-        // Instead of the 'res' ojbect from express, we instantiate a new fetch API Response object
+        /**
+         * Instead of the 'res' ojbect from express, we
+         * instantiate a new fetch API Response object
+         */
         return new Response(
             JSON.stringify(json),
             {
