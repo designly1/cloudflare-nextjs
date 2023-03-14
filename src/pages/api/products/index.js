@@ -1,4 +1,4 @@
-// @/pages/api/products.js
+// @/pages/api/products/index.js
 // Next.js Edge API Routes: https://nextjs.org/docs/api-routes/edge-api-routes
 
 // Tell Next.js to use the edge runtime
