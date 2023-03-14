@@ -20,7 +20,7 @@ export default function HomePage({ products }) {
 
     const fetchProduct = async (pid) => {
       try {
-        const result = await fetch(`/api/products/${pid}`);
+        const result = await fetch(`/api/product?pid=${pid}`);
         const json = await result.json();
         setProductData(json);
       } catch (err) {
